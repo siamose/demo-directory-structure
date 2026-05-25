@@ -1,0 +1,16 @@
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: ${CONTAINER_NAME:-{{cookiecutter.project_slug}}_dev}
+    volumes:
+      - ./:/workspace:cached
+    working_dir: /workspace
+    env_file:
+      - path: .env
+        required: false
+    ports:
+      - "127.0.0.1:8501:8501"
+      - "127.0.0.1:8888:8888"
+    tty: true

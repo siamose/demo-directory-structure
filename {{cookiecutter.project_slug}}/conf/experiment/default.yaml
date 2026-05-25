@@ -1,0 +1,15 @@
+# @package _global_
+experiment:
+  name: default
+  params:
+    # WARNING: タスク・データに応じてパラメータを調整してください
+    n_splits: 4
+    learning_rate: 0.05
+    num_leaves: 63
+    n_estimators: 300
+    min_child_samples: 20
+    subsample: 0.8
+    colsample_bytree: 0.8
+    reg_alpha: 0.0
+    reg_lambda: 1.0
+    random_state: 42

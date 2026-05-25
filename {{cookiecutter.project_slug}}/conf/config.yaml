@@ -1,0 +1,26 @@
+defaults:
+  - experiment: default
+  - _self_
+
+data:
+  input_path: data/raw/
+  output_path: data/processed/
+  # WARNING: 目的変数のカラム名を変更してください
+  target_col: target
+
+mlflow:
+  tracking_uri: mlruns
+  experiment_name: "{{cookiecutter.project_slug}}"
+
+# ── Optuna / Hydra sweeper 設定 ─────────────────────────────────────────────
+# WARNING: --multirun フラグを付けると Optuna が n_trials 回学習を実行する
+#          通常の1回学習では --multirun を付けないこと
+hydra:
+  sweeper:
+    _target_: hydra_plugins.hydra_optuna_sweeper.optuna_sweeper.OptunaSweeper
+    n_trials: 5
+    # WARNING: AUC・Accuracy など高いほど良い指標 → maximize
+    #          RMSE・Logloss など低いほど良い指標 → minimize
+    direction: maximize
+    sampler:
+      _target_: optuna.samplers.TPESampler
